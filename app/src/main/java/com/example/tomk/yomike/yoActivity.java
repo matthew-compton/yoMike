@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -27,6 +28,21 @@ public class YoActivity extends Activity {
         setContentView(R.layout.activity_yo);
         ButterKnife.inject(this);
         mImageView.setOnClickListener(mOnClickListener);
+        mImageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.setAlpha(0.5f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.setAlpha(1.0f);
+                        v.performClick();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
